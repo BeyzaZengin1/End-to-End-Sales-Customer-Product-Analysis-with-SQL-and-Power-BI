@@ -318,8 +318,8 @@ A segment ürünler:
 
 ## 📷 Dashboard
 
-![Monthly Sales Dashboard](assets/images/DashboardFinal1.png)
-![Monthly Sales Dashboard](assets/images/DashboardFinal2.png)
+![Monthly Sales Dashboard](C:\Users\Hp\OneDrive\Masaüstü\DashboardPNG\DashboardFinal1.png)
+![Monthly Sales Dashboard](C:\Users\Hp\OneDrive\Masaüstü\DashboardPNG\DashboardFinal2.png)
 
 ---
 
