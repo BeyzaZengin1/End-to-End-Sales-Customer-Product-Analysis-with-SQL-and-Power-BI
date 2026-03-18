@@ -319,7 +319,7 @@ A segment ürünler:
 ## 📷 Dashboard
 
 ![Monthly Sales Dashboard](https://github.com/BeyzaZengin1/End-to-End-Sales-Customer-Product-Analysis-with-SQL-and-Power-BI/blob/main/DashboardFinal1.png)
-![Monthly Sales Dashboard]()
+![Monthly Sales Dashboard](https://github.com/BeyzaZengin1/End-to-End-Sales-Customer-Product-Analysis-with-SQL-and-Power-BI/blob/main/DashboardFinal2.png)
 
 ---
 
