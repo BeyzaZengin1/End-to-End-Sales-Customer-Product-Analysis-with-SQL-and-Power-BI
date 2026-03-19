@@ -291,5 +291,5 @@ It highlights:
 ## 👨‍💻 Author
 
 * Beyza Zengin
-* GitHub:
+* GitHub: https://github.com/BeyzaZengin1
 * Linkedin:
