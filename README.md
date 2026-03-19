@@ -292,4 +292,4 @@ It highlights:
 
 * Beyza Zengin
 * GitHub: https://github.com/BeyzaZengin1
-* Linkedin:
+* Linkedin: www.linkedin.com/in/beyza-zengin-615a2a223
