@@ -2,6 +2,14 @@
 
 # 📊 Online Retail Analytics | SQL & Power BI Project
 
+## 💡 Key Highlights
+
+* Built an end-to-end SQL data pipeline for retail analytics
+* Cleaned and transformed raw transactional data using advanced SQL techniques
+* Identified key business drivers using Pareto and segmentation analysis
+* Designed an interactive Power BI dashboard for decision-making
+
+  
 ## 📌 Project Overview
 
 This project performs an end-to-end analysis of an online retail dataset using SQL, followed by visualization in Power BI.
@@ -26,15 +34,15 @@ It covers the full data workflow:
 * SQL (Advanced Data Analysis & Data Cleaning)
 * Power BI (Dashboarding & Visualization)
 * Dataset: Online Retail II
-* Content:
-* Invoice,StockCode,Description,Quantity,InvoiceDate,Price,CustomerID,Country
+  **Dataset Columns:**
+* Invoice, StockCode, Description, Quantity, InvoiceDate, Price, CustomerID, Country
 
 ---
 
 ## 📂 Project Structure
 
 * `ECommersAnalysis.sql` → Full SQL workflow (EDA, cleaning, analysis)
-* `SalesAnalysisDashboard.pbix` → Interactive dashboard
+* `SalesAnalysisDashboard.pbix` → Dashboard
 * `OnlineRetail2.csv` → Dataset
 * `README.md` → Documentation
 
@@ -42,6 +50,7 @@ It covers the full data workflow:
 * View_Returns → Cleaned returns dataset
 * Clean_Online_Retail → Cleaned sales dataset
 * Clean_Online_Retail_Final → Deduplicated, analysis-ready dataset
+* View_Sales_Vs_Refund_Trend → Compared monthly sales trends with return trends
 
 * SQL techniques used:
 * ROW_NUMBER() for deduplication
@@ -80,11 +89,10 @@ The dataset contains operational noise and inconsistencies:
 
 #### Removed:
 
-* Cancelled invoices (`Invoice LIKE 'C%'`)
+* Cancelled invoices (`Invoice LIKE 'C%'`)   ! View_Returns has been created for return analysis.
 * Zero-price and non-commercial transactions
 * Operational records:
-
-  * POSTAGE, AMAZON FEE, Manual adjustments
+* POSTAGE, AMAZON FEE, Manual adjustments
 
 #### Filtered:
 
@@ -99,9 +107,8 @@ The dataset contains operational noise and inconsistencies:
 
 * Statistical profiling (MIN, MAX, AVG, STDEV)
 * IQR-based filtering for:
-
-  * Price
-  * Quantity
+* Price
+* Quantity
 
 ---
 
@@ -110,7 +117,7 @@ The dataset contains operational noise and inconsistencies:
 Created structured analytical layers:
 
 * `Clean_Online_Retail` → filtered dataset
-* `Clean_Online_Retail_Final` → deduplicated dataset
+* `Clean_Online_Retail_Final` → filtered deduplicated dataset
 * `View_Returns` → cleaned return transactions
 * `View_Sales_Vs_Refund_Trend` → sales vs refund comparison
 
@@ -128,15 +135,17 @@ Created structured analytical layers:
 
 ### Core Metrics
 
-* Total Revenue
-* Total Invoices
-* Total Returned Product
-* Returned Rate
-* Average Order Value (AOV)
-* Unique Customers
-* Unique Products
+* Total Revenue: 3,84 M 
+* Total Orders: 17 K
+* Total Sold Quantity: 2 M
+* Total Returned Quantity: 28 K
+* Repeat Customer Quantity: 3 K
+* Repeat Rate: 0,64%
+* Returned Refund Amount: 104.96 K
+* Total Customers: 4 K
 * Country-level performance analysis
 * Monthly sales trends and revenue share
+* Compare monthly sales and return trends
 
 ---
 
@@ -155,13 +164,14 @@ Created structured analytical layers:
 
 ## 📈 Key Business Insights & Recommendations
 
-### 💰 Revenue & Sales
+### 💰 Monthly Trend & Revenue & Sales Insights
 
+* Monthly revenue and invoice volume peak in November, with ~14.8% of total annual revenue.
+* September–November period is the strongest sales season, likely due to promotions or seasonal demand.
+* Early months (Jan–Mar) and December show lower sales volumes, indicating seasonality.
+* The increase in total products sold mirrors invoice growth, confirming higher transaction activity drives revenue peaks.
 * Revenue is highly concentrated in a small subset of products (**Pareto effect observed**)
 * A-segment products generate ~80% of total revenue
-* The business is heavily concentrated in the UK market, generating over 85% of total revenue
-* International markets show lower transaction volume but higher average order values
-* High-value niche markets (e.g., Singapore, Switzerland) indicate strong premium customer segments
 * Customer behavior suggests strong repeat purchasing patterns (~4 orders per customer)
 * Product catalog is large, indicating potential long-tail distribution in revenue contribution
   
@@ -169,155 +179,97 @@ Created structured analytical layers:
 
 ### 🛍 Customer Behavior
 
+* A total of 2,679 customers are repeat buyers, representing a repeat rate of 64%.
 * Significant portion of customers are **one-time buyers**
 * Repeat customers contribute disproportionately to total revenue
 * High-value customers dominate revenue distribution
-* Repeat customer analysis and purchase frequency
-* Top customers by total spending
-* Pareto analysis to identify high-value customers
+* Customers place ~4 orders on average
+
 
 ---
 
-### 🌍 Market Insights
+### 🌍 Country & Market Insights
 
-* Certain countries generate the majority of revenue
+* Premium / high-value niche markets:
+* Singapore, Switzerland, Lebanon, Channel Islands → low transaction volume but high Average Order Value (AOV), indicating strong premium customer segments.
+* International markets show lower transaction volume but higher average order values
+* The business is heavily concentrated in the UK market, generating over 85% of total revenue
+* High-value niche markets (e.g., Singapore, Switzerland) indicate strong premium customer segments
+* Certain countries (UK,Germany,France,EIRE) generate the majority of revenue
 * Basket value varies significantly by region
-* Co-purchased products for “Star” items
-* Only significant associations considered
+
 
 ---
 
 ## 📊 Product & Revenue Insights 
 
-- A small subset of products (A segment) generates ~80% of total revenue, confirming the Pareto principle
-- 807 products drive the majority of business value, while 1800+ products contribute only ~5% of revenue
-- Top-performing products show both high order frequency and high sales volume, indicating strong product-market fit
-- The business follows a long-tail distribution, where a few key products dominate overall performance
- 
-📊 📈 PRODUCT & ABC ANALYSIS 
+* A small subset of products (A segment) generates ~80% of total revenue, confirming the Pareto principle.
+* Approximately 800 products drive the majority of business value, while over 1,800 products contribute only ~5% of total revenue.
+* Top-performing products (e.g., PARTY BUNTING, WHITE HANGING HEART T-LIGHT HOLDER, JUMBO BAG RED RETROSPOT) exhibit both high order frequency and high sales volume.
+* This indicates strong product-market fit and consistent customer demand.
+* The overall product portfolio follows a long-tail distribution, where a few key products dominate revenue while many contribute marginally.
 
-🏆 Top Product Performance
-📌 Insight
+### 📈 Business Implications
 
-En çok gelir getiren ürünler:
+* Inventory should prioritize A-segment products to avoid stock-outs of high-revenue items.
+* Marketing efforts should focus on high-performing products to maximize ROI.
+* A-segment products are ideal candidates for cross-selling and bundling strategies.
 
-PARTY BUNTING
 
-WHITE HANGING HEART T-LIGHT HOLDER
 
-JUMBO BAG RED RETROSPOT
-
-👉 Bu ürünler:
-
-Hem yüksek sipariş sayısı
-
-Hem yüksek adet satışı
-
-Hem de yüksek revenue üretiyor
-
-💥 Gerçek yorum:
-
-Bu ürünler “core revenue drivers” — yani işin bel kemiği
-
-📌 Behavioral Insight
-
-Bazı ürünlerde:
-
-Quantity yüksek (10K+)
-
-Order count da yüksek
-
-👉 Bu şu demek:
-
-💥
-
-Bu ürünler sadece popüler değil, aynı zamanda frekanslı tekrar satın alınan ürünler
-
-📊 ABC ANALYSIS 
-🔥 Ana sonuç:
-
-A segment → %80 revenue (79.99%)
-
-B segment → %15
-
-C segment → %5
-
-👉 Bu tam olarak:
-
-💥 Pareto Principle (80/20 rule)
-
-💎 Revenue Concentration Insight
-
-807 ürün → %80 revenue
-
-1883 ürün → sadece %5 revenue
-
-💥
-
-Ürünlerin büyük çoğunluğu neredeyse hiç değer üretmiyor
-
-⚖️ Product Strategy Insight
-📌 Çok kritik çıkarım:
-
-👉 İş modeli:
-
-Few products = high impact
-
-Many products = low impact
-
-💥
-
-Bu klasik long-tail e-commerce structure
-
-🚀 Business Implications (mülakatlık kısım)
-1. Inventory Optimization
-
-A segment ürünler:
-
-stokta HER ZAMAN olmalı
-
-C segment:
-
-kaldırılabilir / azaltılabilir
-
-2. Marketing Strategy
-
-Reklam bütçesi:
-👉 A segment ürünlere odaklanmalı
-
-3. Cross-Selling Opportunity
-
-A segment ürünler:
-👉 bundle / öneri sistemi için ideal
 ---
+# 🛒 Market Basket Analysis
 
-### 🔄 Returns Analysis
+* Identified frequently co-purchased products based on transaction-level data.
+* Analysis focused on A-segment (top revenue) products to uncover high-impact associations.
+* Only statistically significant product relationships were retained to eliminate noise.
+* Results highlight strong cross-selling opportunities between high-performing products. 
 
-* Returns are mostly associated with:
+ 
+### 🔄 Returns Analysis Insights
 
-* Specific products
-* Certain countries
-* Refund trends follow sales trends but at a lower magnitude
-* Return rate remains relatively controlled but impacts profit margins
-* Top returned products by quantity and revenue
-* Country-wise return trends
-* Monthly sales vs. return trends
-* Overall return rate:
-* By quantity
-* By revenue
+* Returns are concentrated in specific products and countries, indicating potential quality or logistics issues.
+* Refund trends follow overall sales patterns but remain at a significantly lower magnitude.
+* The overall return rate is relatively controlled, suggesting stable operational performance.
+* However, returns still have a measurable impact on total revenue and profit margins.
+* Certain products show consistently high return volumes, making them key targets for quality improvement.
+* Return behavior varies by country, highlighting differences in customer expectations or delivery conditions.
 
 ---
 
 ### ⚠️ Data Quality Insights
 
-* Missing Customer_ID impacts customer-level analysis
-* Operational records (postage, fees) can distort revenue if not cleaned
-* Outliers significantly affect statistical metrics if not handled
+* Missing Customer_ID values limit the accuracy of customer-level analysis, including segmentation and repeat behavior.
+* Operational records (e.g., postage, fees, manual adjustments) can artificially inflate revenue if not properly excluded.
+* Outliers in price and quantity significantly distort statistical metrics such as averages and standard deviation.
+* Data cleaning and filtering (including IQR-based outlier detection) are essential to ensure reliable and meaningful analysis.
+
 
 ---
 
 ## 📷 Dashboard
 
+## 📷 Dashboard Overview
+
+* The dashboard provides a comprehensive and interactive view of the business performance across multiple dimensions:
+
+* Monthly revenue, invoice volume, and sales trends over time
+* Revenue share distribution and seasonality patterns
+* Country-level performance including total revenue, transaction volume, and average order value (AOV)
+* Identification of high-value and niche markets (e.g., high AOV countries)
+* Top-performing products based on revenue, quantity sold, and order frequency
+* ABC product segmentation highlighting A, B, and C category contributions
+* Product-level revenue concentration and long-tail distribution insights
+* Customer behavior analysis including repeat customers, one-time buyers, and repeat rate
+* Customer value distribution and identification of high-value customers (Pareto analysis)
+* Market basket analysis showing frequently co-purchased products and cross-selling opportunities
+* Return and cancellation analysis including:
+  * Total returned quantity and refund amount
+  * Top returned products
+  * Country-level return patterns
+  * Monthly sales vs. return trend comparison
+  * Overall return rate impact on revenue
+    
 ![Monthly Sales Dashboard](https://github.com/BeyzaZengin1/End-to-End-Sales-Customer-Product-Analysis-with-SQL-and-Power-BI/blob/main/DashboardFinal1.png)
 ![Monthly Sales Dashboard](https://github.com/BeyzaZengin1/End-to-End-Sales-Customer-Product-Analysis-with-SQL-and-Power-BI/blob/main/DashboardFinal2.png)
 
@@ -339,4 +291,5 @@ It highlights:
 ## 👨‍💻 Author
 
 * Beyza Zengin
-* GitHub: https://github.com/yourusername
+* GitHub:
+* Linkedin:
