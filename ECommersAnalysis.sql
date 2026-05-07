@@ -110,13 +110,23 @@ SELECT TOP 10 * FROM online_retail_II ORDER BY Quantity DESC;
 
 SELECT TOP 10 * FROM online_retail_II ORDER BY Price DESC; -- There are operationals records 
 
+-- All operational records.
+SELECT 
+    StockCode, 
+    Description, 
+    COUNT(*) AS Transaction_Counts, 
+    SUM(Quantity * Price) AS Total_Value,
+FROM online_retail_II
+WHERE StockCode NOT LIKE '[0-9][0-9][0-9][0-9][0-9]%' -- Fetch everything that does not start with a 5-digit number
+GROUP BY StockCode, Description
+ORDER BY ABS(SUM(Quantity * Price)) DESC; -- The highest value transactions (both negative and positive) are at the top
+
 --RETURN/CANCEL 
 
 --Excluded InvoiceNos starting with 'C' as they represent operational adjustments, not actual returns.
 SELECT * FROM online_retail_II
-WHERE Invoice LIKE 'C%' 
-  AND (Description IN ('AMAZON FEE', 'Adjust bad debt', 'POSTAGE', 'DOTCOM POSTAGE', 'Manual') 
-       OR Price = 0);
+WHERE Invoice LIKE 'C%' AND ( Price = 0
+    OR StockCode NOT LIKE '[0-9][0-9][0-9][0-9][0-9]%');
 
 -- Dropped 'C' records with empty descriptions and zero prices; identified as non-commercial operational logs.
 
@@ -141,15 +151,7 @@ SELECT TOP 10
     Customer_ID
 FROM online_retail_II
 WHERE Invoice LIKE 'C%'
-AND Description NOT IN (
-      'AMAZON FEE', 
-      'Adjust bad debt', 
-      'POSTAGE', 
-      'DOTCOM POSTAGE', 
-      'Manual',
-      'Bank Charges',
-      'CRUK Commission'
-  )
+AND (StockCode LIKE '%[0-9]%' AND LEN(StockCode) BETWEEN 4 AND 6)
 ORDER BY Quantity ASC; 
 
 
@@ -254,7 +256,7 @@ WITH Deduplicated_Returns AS (
       AND Quantity BETWEEN -23 AND -1  -- Kept only plausible retail returns by filtering extreme outliers based on the IQR method.
       AND Price > 0
       AND Customer_ID IS NOT NULL
-      AND Description NOT IN ('AMAZON FEE', 'Adjust bad debt', 'POSTAGE', 'DOTCOM POSTAGE', 'Manual')
+      AND (StockCode LIKE '%[0-9]%' AND LEN(StockCode) BETWEEN 4 AND 6)
 )
 SELECT * FROM Deduplicated_Returns WHERE rn = 1;
 GO
@@ -268,16 +270,8 @@ WHERE Price BETWEEN 0.01 AND 8.45  -- exclude operational/extreme prices
   AND Quantity BETWEEN 1 AND 23   -- exclude negative or wholesale quantities
   AND Description IS NOT NULL
   AND Customer_ID IS NOT NULL
-  AND Description NOT IN (     -- These records represent operational entries and do not reflect real sales,
-                               -- therefore they were excluded from the Clean_Online_Retail view.
-      'AMAZON FEE',
-      'Adjust bad debt',
-      'POSTAGE',
-      'DOTCOM POSTAGE',
-      'Manual'
-);
-
-GO
+  AND (StockCode LIKE '%[0-9]%' AND LEN(StockCode) BETWEEN 4 AND 6);     -- These records represent operational entries and do not reflect real sales,
+GO                                   -- therefore they were excluded from the Clean_Online_Retail view.
 
 
 --CONTROLLING DUPLICATES
