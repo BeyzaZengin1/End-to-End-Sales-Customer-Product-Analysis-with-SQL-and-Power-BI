@@ -102,6 +102,10 @@ SELECT
 FROM online_retail_II 
 WHERE Description IS NULL;
 
+SELECT DISTINCT Description, Price 
+FROM online_retail_II 
+WHERE Price = 0 OR Invoice LIKE 'C%';
+
 --The highest sales volumes.
 
 SELECT TOP 10 * FROM online_retail_II ORDER BY Quantity DESC;
