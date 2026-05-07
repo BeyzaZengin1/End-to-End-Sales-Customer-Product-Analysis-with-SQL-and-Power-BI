@@ -102,6 +102,13 @@ SELECT
 FROM online_retail_II 
 WHERE Description IS NULL;
 
+--The highest sales volumes.
+
+SELECT TOP 10 * FROM online_retail_II ORDER BY Quantity DESC;
+
+--The highest prices.
+
+SELECT TOP 10 * FROM online_retail_II ORDER BY Price DESC; -- There are operationals records 
 
 --RETURN/CANCEL 
 
